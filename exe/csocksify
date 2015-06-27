@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require "socksify"
+require "optparse"
+
+version = ">= 0"
+gem_name = nil
+server = "localhost"
+port = 1080
+
+OptionParser.new do |option|
+  option.on("-g GEM_NAME") {|v| gem_name = v }
+  option.on("-s SOCKS_SERVER") {|v| server = v }
+  option.on("-p SOCKS_PORT") {|v| port = v.to_i }
+  option.order!(ARGV)
+end
+
+TCPSocket.socks_server = server
+TCPSocket.socks_port = port
+
+bin_name = ARGV.shift
+gem_name ||= bin_name
+
+gem gem_name, version
+load Gem.bin_path(gem_name, bin_name, version)
