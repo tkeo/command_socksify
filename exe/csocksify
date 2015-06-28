@@ -9,9 +9,9 @@ server = "localhost"
 port = 1080
 
 OptionParser.new do |option|
-  option.on("-g GEM_NAME") {|v| gem_name = v }
-  option.on("-s SOCKS_SERVER") {|v| server = v }
-  option.on("-p SOCKS_PORT") {|v| port = v.to_i }
+  option.on("-g GEM_NAME", String, "default: same as the command name") {|v| gem_name = v }
+  option.on("-s SOCKS_SERVER", String, "default: localhost") {|v| server = v }
+  option.on("-p SOCKS_PORT", Integer, "default: 1080") {|v| port = v }
   option.order!(ARGV)
 end
 
